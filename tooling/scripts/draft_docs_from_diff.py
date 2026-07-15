@@ -103,6 +103,12 @@ def main():
     args = parser.parse_args()
 
     diff_text = build_diff(args.old_spec, args.new_spec)
+    # No spec change (e.g. a docs-only push) means nothing to draft. Skip
+    # instead of calling the model on an empty diff and overwriting the doc.
+    if not diff_text.strip():
+        print("No spec changes detected; skipping draft.")
+        return
+
     with open(args.doc) as f:
         current_doc = f.read()
 

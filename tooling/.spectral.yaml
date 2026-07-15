@@ -1,8 +1,11 @@
 extends: ["spectral:oas"]
 rules:
-  operation-description: error
-  operation-tags: error
-  info-description: error
+  # Doc-completeness rules kept at warn (not error): these forks track real
+  # upstream specs we don't author, which legitimately miss tags/descriptions.
+  # Warnings surface the gaps without blocking CI on upstream content.
+  operation-description: warn
+  operation-tags: warn
+  info-description: warn
   schema-properties-have-description:
     description: "Every schema property should have a description for docs generation to produce useful reference pages."
     # warn (not error) so undescribed properties surface as guidance without
